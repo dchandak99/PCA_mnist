@@ -1,0 +1,397 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ass3_q4_1</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-10-21"><meta name="DC.source" content="ass3_q4_1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">clear;
+close <span class="string">all</span>;
+
+load (<span class="string">'mnist.mat'</span>);
+
+label=double(labels_test*1.0);
+big_m=reshape(double(digits_test*1.0),[28*28,10000]);
+count=zeros(10);
+
+mu=zeros(28*28,10);
+cov_d=zeros(28*28,28*28,10);
+
+<span class="keyword">for</span> i=1:10000
+
+    mu(:,label(i)+1)=mu(:,label(i)+1)+big_m(:,i);
+    count(label(i)+1)=count(label(i)+1)+1;
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:10
+    mu(:,i)=mu(:,i)/count(i);
+<span class="keyword">end</span>
+
+X0=zeros(28*28,count(1));
+X1=zeros(28*28,count(2));
+X2=zeros(28*28,count(3));
+X3=zeros(28*28,count(4));
+X4=zeros(28*28,count(5));
+X5=zeros(28*28,count(6));
+X6=zeros(28*28,count(7));
+X7=zeros(28*28,count(8));
+X8=zeros(28*28,count(9));
+X9=zeros(28*28,count(10));
+count=zeros(10);
+
+<span class="keyword">for</span> i=1:10000
+    count(label(i)+1)=count(label(i)+1)+1;
+    <span class="keyword">if</span> label(i)==0
+        X0(:,count(1))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==1
+        X1(:,count(2))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==2
+        X2(:,count(3))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==3
+        X3(:,count(4))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==4
+        X4(:,count(5))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==5
+        X5(:,count(6))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==6
+        X6(:,count(7))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==7
+        X7(:,count(8))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==8
+        X8(:,count(9))=big_m(:,i)-mu(:,label(i)+1);
+
+    <span class="keyword">elseif</span> label(i)==9
+        X9(:,count(10))=big_m(:,i)-mu(:,label(i)+1);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+index=zeros(784);
+<span class="keyword">for</span> i=1:784
+    index(i)=i-1;
+<span class="keyword">end</span>
+
+cov_d(:,:,1)=X0*X0.'/(count(1)-1);
+cov_d(:,:,2)=X1*X1.'/(count(2)-1);
+cov_d(:,:,3)=X2*X2.'/(count(3)-1);
+cov_d(:,:,4)=X3*X3.'/(count(4)-1);
+cov_d(:,:,5)=X4*X4.'/(count(5)-1);
+cov_d(:,:,6)=X5*X5.'/(count(6)-1);
+cov_d(:,:,7)=X6*X6.'/(count(7)-1);
+cov_d(:,:,8)=X7*X7.'/(count(8)-1);
+cov_d(:,:,9)=X8*X8.'/(count(9)-1);
+cov_d(:,:,10)=X9*X9.'/(count(10)-1);
+
+
+lamda=zeros(28*28,10);
+lamda_un=lamda;
+v=zeros(784,784,10);
+
+<span class="keyword">for</span> i=1:10
+    lamdaun(:,i)=eig(cov_d(:,:,i));
+    [V D]=eig(cov_d(:,:,i));
+    v(:,:,i)=V;
+    lamda(:,i)=sort(lamdaun(:,i),<span class="string">'descend'</span>);
+<span class="keyword">end</span>
+
+lamda1=zeros(10,1);
+
+<span class="keyword">for</span> i=1:10
+    lamda1(i)=lamda(1,i);
+<span class="keyword">end</span>
+
+maxindex=zeros(10,1);
+v1=zeros(784,10);
+
+<span class="keyword">for</span> i=1:10
+    <span class="keyword">for</span> j=28*28:-1:1
+        <span class="keyword">if</span> lamda1(i)==lamdaun(j,i)
+            maxindex(i)=j;
+            <span class="keyword">break</span>;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:10
+    v1(:,i)=v(:,maxindex(i),i);
+<span class="keyword">end</span>
+
+<span class="comment">%v1(:,i) stores principal eigen vector for (i-1)th digit</span>
+<span class="comment">%lamda(i) stores principal eigen value for (i-1)th digit</span>
+
+<span class="keyword">for</span> i=1:10
+    figure;
+    plot(lamda(:,i));
+    xlabel(<span class="string">'Eigen Value index'</span>);
+    ylabel(<span class="string">'Eigen Value'</span>);
+    title(sprintf(<span class="string">'Lamdas for digit %d'</span>,i-1))
+    drawnow;
+    hold <span class="string">off</span>;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="ass3_q4_1_01.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_02.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_03.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_04.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_05.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_06.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_07.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_08.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_09.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_10.png" alt=""> <pre class="codeinput">j=1;
+<span class="keyword">for</span> i=1:10
+
+    mu_plot=(reshape((mu(:,i)),[28,28]));
+    <span class="comment">%lamda1_plot=uint8(lamda1(7));</span>
+    v1_plot=(reshape((v1(:,i)),[28,28]));
+
+    figure(j);
+    imshow(uint8(mu_plot-lamda1(i)^0.5*v1_plot))
+    axis <span class="string">equal</span>;
+    title(sprintf(<span class="string">'mean-root(lamda1)*v1'</span>))
+    drawnow;
+    hold <span class="string">off</span>;
+
+    figure(j+1);
+    imshow(uint8(mu_plot));
+    axis <span class="string">equal</span>;
+    title(sprintf(<span class="string">'mean image'</span>))
+    drawnow;
+    hold <span class="string">off</span>;
+
+    figure(j+2);
+    imshow(uint8(mu_plot+lamda1(i)^0.5*v1_plot))
+    axis <span class="string">equal</span>;
+    title(sprintf(<span class="string">'mean+root(lamda1)*v1'</span>))
+    drawnow;
+    hold <span class="string">off</span>;
+
+    j=j+3;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="ass3_q4_1_11.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_12.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_13.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_14.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_15.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_16.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_17.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_18.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_19.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_20.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_21.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_22.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_23.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_24.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_25.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_26.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_27.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_28.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_29.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_30.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_31.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_32.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_33.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_34.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_35.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_36.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_37.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_38.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_39.png" alt=""> <img vspace="5" hspace="5" src="ass3_q4_1_40.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear;
+close all;
+
+load ('mnist.mat');
+
+label=double(labels_test*1.0);
+big_m=reshape(double(digits_test*1.0),[28*28,10000]);
+count=zeros(10);
+
+mu=zeros(28*28,10);
+cov_d=zeros(28*28,28*28,10);
+
+for i=1:10000
+    
+    mu(:,label(i)+1)=mu(:,label(i)+1)+big_m(:,i);
+    count(label(i)+1)=count(label(i)+1)+1;
+end
+
+for i=1:10
+    mu(:,i)=mu(:,i)/count(i);
+end
+
+X0=zeros(28*28,count(1));
+X1=zeros(28*28,count(2));
+X2=zeros(28*28,count(3));
+X3=zeros(28*28,count(4));
+X4=zeros(28*28,count(5));
+X5=zeros(28*28,count(6));
+X6=zeros(28*28,count(7));
+X7=zeros(28*28,count(8));
+X8=zeros(28*28,count(9));
+X9=zeros(28*28,count(10));
+count=zeros(10);
+
+for i=1:10000
+    count(label(i)+1)=count(label(i)+1)+1;
+    if label(i)==0
+        X0(:,count(1))=big_m(:,i)-mu(:,label(i)+1);
+        
+    elseif label(i)==1
+        X1(:,count(2))=big_m(:,i)-mu(:,label(i)+1);
+        
+    elseif label(i)==2
+        X2(:,count(3))=big_m(:,i)-mu(:,label(i)+1);
+        
+    elseif label(i)==3
+        X3(:,count(4))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==4
+        X4(:,count(5))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==5
+        X5(:,count(6))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==6
+        X6(:,count(7))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==7
+        X7(:,count(8))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==8
+        X8(:,count(9))=big_m(:,i)-mu(:,label(i)+1);
+    
+    elseif label(i)==9
+        X9(:,count(10))=big_m(:,i)-mu(:,label(i)+1);
+    end
+end
+
+index=zeros(784);
+for i=1:784
+    index(i)=i-1;
+end
+
+cov_d(:,:,1)=X0*X0.'/(count(1)-1);
+cov_d(:,:,2)=X1*X1.'/(count(2)-1);
+cov_d(:,:,3)=X2*X2.'/(count(3)-1);
+cov_d(:,:,4)=X3*X3.'/(count(4)-1);
+cov_d(:,:,5)=X4*X4.'/(count(5)-1);
+cov_d(:,:,6)=X5*X5.'/(count(6)-1);
+cov_d(:,:,7)=X6*X6.'/(count(7)-1);
+cov_d(:,:,8)=X7*X7.'/(count(8)-1);
+cov_d(:,:,9)=X8*X8.'/(count(9)-1);
+cov_d(:,:,10)=X9*X9.'/(count(10)-1);
+
+
+lamda=zeros(28*28,10);
+lamda_un=lamda;
+v=zeros(784,784,10);
+
+for i=1:10
+    lamdaun(:,i)=eig(cov_d(:,:,i));
+    [V D]=eig(cov_d(:,:,i));
+    v(:,:,i)=V;
+    lamda(:,i)=sort(lamdaun(:,i),'descend');
+end
+
+lamda1=zeros(10,1);
+
+for i=1:10
+    lamda1(i)=lamda(1,i);
+end
+
+maxindex=zeros(10,1);
+v1=zeros(784,10);
+
+for i=1:10
+    for j=28*28:-1:1
+        if lamda1(i)==lamdaun(j,i)
+            maxindex(i)=j;
+            break;
+        end
+    end
+end
+
+for i=1:10
+    v1(:,i)=v(:,maxindex(i),i);
+end
+
+%v1(:,i) stores principal eigen vector for (i-1)th digit
+%lamda(i) stores principal eigen value for (i-1)th digit
+
+for i=1:10
+    figure;
+    plot(lamda(:,i));
+    xlabel('Eigen Value index');
+    ylabel('Eigen Value');
+    title(sprintf('Lamdas for digit %d',i-1))
+    drawnow;
+    hold off;
+end
+
+%%
+j=1;
+for i=1:10
+   
+    mu_plot=(reshape((mu(:,i)),[28,28]));
+    %lamda1_plot=uint8(lamda1(7));
+    v1_plot=(reshape((v1(:,i)),[28,28]));
+    
+    figure(j);
+    imshow(uint8(mu_plot-lamda1(i)^0.5*v1_plot))
+    axis equal;
+    title(sprintf('mean-root(lamda1)*v1'))
+    drawnow;
+    hold off;
+    
+    figure(j+1);
+    imshow(uint8(mu_plot));
+    axis equal;
+    title(sprintf('mean image'))
+    drawnow;
+    hold off;
+    
+    figure(j+2);
+    imshow(uint8(mu_plot+lamda1(i)^0.5*v1_plot))
+    axis equal;
+    title(sprintf('mean+root(lamda1)*v1'))
+    drawnow;
+    hold off;
+    
+    j=j+3;
+end
+
+
+
+##### SOURCE END #####
+--></body></html>
