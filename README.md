@@ -1,7 +1,7 @@
 # PCA_mnist
 
 ### Highlights:
-- Given the MNIST dataset, Principal Component Analysis was performed on the images of each digit to visualize 
+- Given the MNIST dataset, **Principal Component Analysis** was performed on the images of each digit to visualize 
 their principal modes of variation of the digits about the mean (by fitting a MultiVariate Gaussian) 
 - Also, the number of principal eigenvalues were found to decide on the number of degrees of freedom on
 images of each digit
