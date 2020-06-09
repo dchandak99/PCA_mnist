@@ -1,5 +1,6 @@
 # PCA_mnist
 
+### Highlights:
 - Given the MNIST dataset, Principal Component Analysis was performed on the images of each digit to visualize 
 their principal modes of variation of the digits about the mean (by fitting a MultiVariate Gaussian) 
 - Also, the number of principal eigenvalues were found to decide on the number of degrees of freedom on
@@ -21,9 +22,9 @@ matrices) in MATLAB using the functions imagesc() or imshow().
 **Constraint:** Cannot used the functions mean(), cov(), and pca() of MATLAB.
 
 For every digit, from 0 to 9, compute:
-* the mean μ ,
-* the covariance matrix C , and
-* the first mode of variation determined by the eigenvector v 1 and the corresponding eigenvalue
+1. the mean μ ,
+2. the covariance matrix C , and
+3. the first mode of variation determined by the eigenvector v 1 and the corresponding eigenvalue
 
 λ 1 (where λ 1 is the largest of all eigenvalues) of the covariance matrix C 
 
@@ -35,7 +36,10 @@ matrices to vectors and vice versa. The covariance matrix will be of size 28^2 �
 • For each digit, I have sorted the 28^2 eigenvalues of the covariance matrix and have plotted them as
 a graph. 
 
-•  For each digit, I have showed the 3 images side by side: (i) μ− λ 1 v 1 , (ii) μ , and (iii) μ+ λ 1 v 1 ,
+•  For each digit, I have showed the 3 images side by side: 
+1. μ− λ 1 v 1,
+2. μ, and
+3. μ+ λ 1 v 1,
 to show the principal mode of variation of the digits around their mean. 
 
 All graphs are shown in result
