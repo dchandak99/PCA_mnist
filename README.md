@@ -29,9 +29,9 @@ For every digit, from 0 to 9, compute:
 *Note:* Before computing the mean and covariance matrix, convert each 28×28 pixel image matrix
 to a 28<sup>2</sup> × 1 vector by concatenating its columns. To visualize the 28<sup>2</sup> × 1 mean vector, convert
 it back to a matrix and then visualize it using imagesc(). Use the reshape() function to change
-matrices to vectors and vice versa. The covariance matrix will be of size 28<sup>2</sup> × 28^<sup>2</sup>.
+matrices to vectors and vice versa. The covariance matrix will be of size 28<sup>2</sup> × 28<sup>2</sup>.
 
-• For each digit, I have sorted the 28^2 eigenvalues of the covariance matrix and have plotted them as
+• For each digit, I have sorted the 28<sup>2</sup> eigenvalues of the covariance matrix and have plotted them as
 a graph. 
 
 •  For each digit, I have showed the 3 images side by side: 
