@@ -28,7 +28,7 @@ For every digit, from 0 to 9, compute:
 
 λ 1 (where λ 1 is the largest of all eigenvalues) of the covariance matrix C 
 
-Note: Before computing the mean and covariance matrix, convert each 28×28 pixel image matrix
+*Note:* Before computing the mean and covariance matrix, convert each 28×28 pixel image matrix
 to a 28^2 × 1 vector by concatenating its columns. To visualize the 28^2 × 1 mean vector, convert
 it back to a matrix and then visualize it using imagesc(). Use the reshape() function to change
 matrices to vectors and vice versa. The covariance matrix will be of size 28^2 × 28^2 .
