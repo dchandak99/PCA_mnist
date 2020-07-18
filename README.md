@@ -14,8 +14,7 @@ Instructions to run code and interesting comments are given in the report.
 
 Multivariate Gaussian fitting for Principal Component Analysis.
 
-Download the [dataset](http://yann.lecun.com/
-exdb/mnist) comprising images of handwritten digits; this has been downloaded in the folder “data” and stored as “mnist.mat”.
+Download the [dataset](http://yann.lecun.com/exdb/mnist) comprising images of handwritten digits; this has been downloaded in the folder “data” and stored as “mnist.mat”.
 Each image is stored as a matrix (28 × 28) of numbers. You can visualize these images (or
 matrices) in MATLAB using the functions imagesc() or imshow(). 
 
